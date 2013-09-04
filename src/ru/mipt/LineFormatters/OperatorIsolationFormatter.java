@@ -15,20 +15,16 @@ public class OperatorIsolationFormatter implements LineFormatter
 	public boolean Condition(Source source, int lineNumber)
 	{
 		String line = source.getLine(lineNumber);
-		return HasWrongEqualSignIsolation(line);
+		boolean wrong = HasWrongEqualSignIsolation(line);
+		boolean isBeginObjectLine = line.toLowerCase().contains("begin object");
+		return wrong && !isBeginObjectLine;
 	}
 
 	private boolean HasWrongEqualSignIsolation(String line)
 	{
-		/*
-			lol=lol
-			lol= lol
-			lol =lol
-			but not
-			lol     =     lol
-		 */
 		return line.matches(".+=.+");
 	}
+
 
 	@Override
 	public void Format(Source source, int lineNumber)
