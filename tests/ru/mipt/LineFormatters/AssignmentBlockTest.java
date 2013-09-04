@@ -12,14 +12,14 @@ import ru.mipt.SourceFormatter;
  * Autor: aspcartman
  * Date: 04.09.13
  */
-public class OperatorAlignmentTest
+public class AssignmentBlockTest
 {
 	SourceFormatter formatter;
 
 	@Before
 	public void setUp() throws Exception
 	{
-		formatter = new SourceFormatter(new OperatorAlignmentFormatter());
+		formatter = new SourceFormatter(new AssignmentBlockFormatter());
 	}
 
 	@After

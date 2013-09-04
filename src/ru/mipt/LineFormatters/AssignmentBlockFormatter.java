@@ -9,7 +9,7 @@ import ru.mipt.Source;
  * Autor: aspcartman
  * Date: 04.09.13
  */
-public class OperatorAlignmentFormatter implements LineFormatter
+public class AssignmentBlockFormatter implements LineFormatter
 {
 	@Override
 	public boolean Condition(Source source, int lineNumber)
@@ -36,7 +36,7 @@ public class OperatorAlignmentFormatter implements LineFormatter
 
 	private boolean isTheLastInEqualityBlock(String prevLine, String line, String nextLine)
 	{
-		return line.contains("=") && !nextLine.contains("=") && prevLine.contains("=");
+		return line.contains("=") && ! isApropriateLine(nextLine) && isApropriateLine(prevLine);
 	}
 
 	private boolean isTheFirstLine(int lineNumber)
@@ -54,14 +54,13 @@ public class OperatorAlignmentFormatter implements LineFormatter
 	{
 		int desiredPosition = DesiredOperatorPosition(source, lineNumber);
 		String line = source.getLine(lineNumber);
-		while (line.contains("="))
+		while (isApropriateLine(line))
 		{
 			int currentPosition = line.indexOf("=");
 			line = InsertSpaces(line, currentPosition, desiredPosition);
 			source.setLine(lineNumber,line);
 
-			line = NextLine(source,lineNumber);
-			lineNumber--;
+			line = source.getLine(--lineNumber);
 		}
 	}
 
@@ -76,29 +75,23 @@ public class OperatorAlignmentFormatter implements LineFormatter
 	{
 		int operatorPosition = 0;
 		String line = source.getLine(lineNumber);
-		while (line.contains("="))
+		while (isApropriateLine(line))
 		{
 			int position = line.indexOf("=");
 			if (position > operatorPosition)
 			{
 				operatorPosition = position;
 			}
-			line = NextLine(source, lineNumber);
-			lineNumber--;
+			line = source.getLine(--lineNumber);
 		}
 		return operatorPosition;
 	}
 
-	private String NextLine(Source source, int currentLine)
+	private boolean isApropriateLine(String line)
 	{
-		if (! isTheLastLine(source, currentLine - 1))
-		{
-			return source.getLine(currentLine - 1);
-		}
-		else
-		{
-			return "";
-		}
+		boolean hasAsignment = line.contains("=");
+		boolean isBeginObjectLine = line.toLowerCase().contains("begin object");
+		return hasAsignment && !isBeginObjectLine;
 	}
 
 	public String Spaces(int count)
