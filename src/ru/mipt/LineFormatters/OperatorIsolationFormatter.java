@@ -15,7 +15,7 @@ public class OperatorIsolationFormatter implements LineFormatter
 	public boolean Condition(Source source, int lineNumber)
 	{
 		String line = source.getLine(lineNumber);
-	return HasWrongEqualSignIsolation(line);
+		return HasWrongEqualSignIsolation(line);
 	}
 
 	private boolean HasWrongEqualSignIsolation(String line)
@@ -27,15 +27,15 @@ public class OperatorIsolationFormatter implements LineFormatter
 			but not
 			lol     =     lol
 		 */
-		return line.matches("((.+)=(\\S+)|(\\S+)=(.+))");
+		return line.matches(".+=.+");
 	}
 
 	@Override
 	public void Format(Source source, int lineNumber)
 	{
 		String line = source.getLine(lineNumber);
-		line = line.replaceAll("(.*?)\\s*?=\\s*?(\\S+)", "$1 = $2");
-		source.setLine(lineNumber,line);
+		line = line.replaceAll("(.*?)\\s*?([!\\-\\+=]?) ?(=+)\\s*?(\\S+)", "$1 $2$3 $4");
+		source.setLine(lineNumber, line);
 	}
 
 	@Override

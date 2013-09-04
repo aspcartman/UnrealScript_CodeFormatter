@@ -28,33 +28,74 @@ public class OperatorIsolationTest
 		formatter = null;
 	}
 
-	@Test
-	public void testOperatorAlignment() throws Exception
+	private void IsolationTestForOperator(String operator) throws Exception
 	{
-		Source input = new Source();
-		input.addLine("lol=lol");
-		input.addLine("lol =lol");
-		input.addLine("lol= lol");
-		input.addLine("lol = lol");
-		input.addLine("lol      =         lol");
-		input.addLine("lol\t=lol");
-		input.addLine("lol=\tlol");
-		input.addLine("lol\t=lol");
-		input.addLine("lol\t=\tlol");
+		Source input = inputForOperator(operator);
+		Source expected = expectedForOperator(operator);
 
 		Source actual = formatter.Format(input);
 
-		Source expected = new Source();
-		expected.addLine("lol = lol");
-		expected.addLine("lol = lol");
-		expected.addLine("lol = lol");
-		expected.addLine("lol = lol");
-		expected.addLine("lol      =         lol");
-		expected.addLine("lol = lol");
-		expected.addLine("lol = lol");
-		expected.addLine("lol = lol");
-		expected.addLine("lol\t=\tlol");
-
 		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testAssignmentOperatorIsolation() throws Exception
+	{
+		IsolationTestForOperator("=");
+	}
+
+	@Test
+	public void testEqualOperatorIsolation() throws Exception
+	{
+		IsolationTestForOperator("==");
+	}
+
+	@Test
+	public void testNotEqualOperatorIsolation() throws Exception
+	{
+		IsolationTestForOperator("!=");
+	}
+
+	@Test
+	public void testPlusAssignmentIsolation() throws Exception
+	{
+		IsolationTestForOperator("+=");
+	}
+
+	@Test
+	public void testMinusAssignmentIsolation() throws Exception
+	{
+		IsolationTestForOperator("-=");
+	}
+
+	private Source inputForOperator(String operator)
+	{
+		Source input = new Source();
+		input.addLine(String.format("lol%slol", operator));
+		input.addLine(String.format("lol %slol", operator));
+		input.addLine(String.format("lol%s lol", operator));
+		input.addLine(String.format("lol %s lol", operator));
+		input.addLine(String.format("lol\t%slol", operator));
+		input.addLine(String.format("lol%s\tlol", operator));
+		input.addLine(String.format("lol\t%slol", operator));
+		input.addLine(String.format("lol\t%s\tlol", operator));
+		input.addLine(String.format("lol   \t   %s     \t    lol", operator));
+
+		return input;
+	}
+
+	private Source expectedForOperator(String operator)
+	{
+		Source expected = new Source();
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		expected.addLine(String.format("lol %s lol", operator));
+		return expected;
 	}
 }
