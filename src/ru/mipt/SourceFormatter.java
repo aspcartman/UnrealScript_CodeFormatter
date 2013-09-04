@@ -24,6 +24,7 @@ public class SourceFormatter
 		formatters.add(new ExcessSpacesFormatter());
 		formatters.add(new BracesIndentationFormatter());
 		formatters.add(new BeginEndIndentationFormatter());
+		formatters.add(new OperatorAlignmentFormatter());
 	}
 
 	public SourceFormatter(ArrayList<LineFormatter> formatters)
