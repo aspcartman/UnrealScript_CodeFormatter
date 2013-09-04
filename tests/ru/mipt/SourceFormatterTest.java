@@ -150,4 +150,16 @@ public class SourceFormatterTest
 
 		Assert.assertEquals(expectedSource, actualSource);
 	}
+
+	@Test
+	public void testRealCodeDemo() throws Exception
+	{
+		SourceFileReader reader = new SourceFileReader("testAssets/Formatter_1.testAsset");
+		Source source = reader.GetSourceCode();
+		Source formated = sourceFormatter.Format(source);
+		for (String s : formated)
+		{
+			System.out.println(s);
+		}
+	}
 }
