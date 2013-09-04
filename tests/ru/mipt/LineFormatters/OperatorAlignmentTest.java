@@ -41,7 +41,6 @@ public class OperatorAlignmentTest
 		input.addLine("smth=nothing");
 		input.addLine("");
 
-
 		Source actual = formatter.Format(input);
 
 		Source expected = new Source();
@@ -54,6 +53,37 @@ public class OperatorAlignmentTest
 		expected.addLine("smth    =nothing");
 		expected.addLine("");
 
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testOperatorAlignment2() throws Exception
+	{
+		Source input = new Source();
+		input.addLine("");
+		input.addLine("Begin Object Class=CylinderComponent Name=CollisionCylinder");
+		input.addLine("CollisionRadius=+0034.000000");
+		input.addLine("CollisionHeight=+0078.000000");
+		input.addLine("BlockNonZeroExtent=true");
+		input.addLine("BlockZeroExtent=true");
+		input.addLine("BlockActors=true");
+		input.addLine("CollideActors=true");
+		input.addLine("End Object");
+		input.addLine("");
+
+		Source actual = formatter.Format(input);
+
+		Source expected = new Source();
+		expected.addLine("");
+		expected.addLine("Begin Object Class=CylinderComponent Name=CollisionCylinder");
+		expected.addLine("CollisionRadius   =+0034.000000");
+		expected.addLine("CollisionHeight   =+0078.000000");
+		expected.addLine("BlockNonZeroExtent=true");
+		expected.addLine("BlockZeroExtent   =true");
+		expected.addLine("BlockActors       =true");
+		expected.addLine("CollideActors     =true");
+		expected.addLine("End Object");
+		expected.addLine("");
 
 		Assert.assertEquals(expected, actual);
 	}
