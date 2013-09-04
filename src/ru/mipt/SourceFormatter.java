@@ -24,6 +24,7 @@ public class SourceFormatter
 		formatters.add(new ExcessSpacesFormatter());
 		formatters.add(new BracesIndentationFormatter());
 		formatters.add(new BeginEndIndentationFormatter());
+		formatters.add(new OperatorIsolationFormatter()); /* Must be before alignment and after indent... why? */
 		formatters.add(new OperatorAlignmentFormatter());
 	}
 
