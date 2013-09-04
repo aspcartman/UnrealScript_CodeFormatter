@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UnrealScript_Formatter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/UnrealScript_Formatter_jar</output-path>
+    <root id="archive" name="UnrealScript_Formatter.jar">
+      <element id="module-output" name="UnrealScript_Formatter" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-io-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-io-2.4-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit-4.10.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

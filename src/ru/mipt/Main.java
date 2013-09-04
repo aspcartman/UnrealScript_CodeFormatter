@@ -10,6 +10,12 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException
     {
+	    if (args.length < 2)
+	    {
+		    System.out.println("Usage: path/to/files extension");
+		    return;
+	    }
+
 	    File targetDirectory = new File(args[0]);
 	    if (! targetDirectory.exists())
 		    throw new RuntimeException("Dir doesn't exist!"+args[0]);
