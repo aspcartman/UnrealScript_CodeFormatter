@@ -1,0 +1,43 @@
+/**
+ * Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ */
+class SGPawn extends UDKPawn
+        config(Game);
+
+var SpotLightComponent flashlight;
+
+function ToggleFlashLight()
+{
+        flashlight.SetEnabled(!flashlight.bEnabled);
+}
+DefaultProperties
+{
+        InventoryManagerClass=Class'ShadeGame.SGInventoryManager'
+
+        Begin Object Class=SkeletalMeshComponent Name=MySkeletalMeshComponent   
+        End Object
+        Mesh=MySkeletalMeshComponent
+        Components.Add(MySkeletalMeshComponent)
+
+ Begin Object Class=DominantSpotLightComponent Name=myFlashlight
+        CastShadows=TRUE
+        CastStaticShadows=TRUE
+        CastDynamicShadows=TRUE
+        bForceDynamicLight=FALSE
+        UseDirectLightMap=FALSE
+        Radius=10240
+        OuterConeAngle=24
+        Translation=(X=0.0,Y=50.0,Z=0.0)
+        FalloffExponent=128.0
+        ShadowFalloffExponent=128.0
+  End Object
+flashlight=myFlashlight
+  Components.Add(myFlashlight)
+        
+        bPushesRigidBodies=TRUE;
+}
+
+function AddDefaultInventory()
+{
+    InvManager.CreateInventory(class'ShadeGame.SGPhysgun');
+}

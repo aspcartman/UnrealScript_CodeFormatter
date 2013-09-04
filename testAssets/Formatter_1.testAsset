@@ -1,0 +1,20 @@
+class SGUseTrigger extends Trigger;
+
+var bool IsInInteractionRange;
+delegate OnUse(Pawn User);
+
+DefaultProperties
+{
+        bStatic = false;
+        bNoDelete = false;
+}
+
+function bool UsedBy(Pawn User)
+{
+        if (OnUse != None)
+        {
+                OnUse(User);
+                return true;
+        }
+        return false;
+}
