@@ -3,6 +3,8 @@ package ru.mipt;
 import ru.mipt.LineFormatters.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * MIPT
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public class SourceFormatter
 {
 	Source source;
-	ArrayList<LineFormatter> formatters;
+	List<LineFormatter> formatters;
 
 	public SourceFormatter()
 	{
@@ -21,16 +23,24 @@ public class SourceFormatter
 		formatters.add(new ExcessLinesFormatter());
 		formatters.add(new OpenBraceFormatter());
 		formatters.add(new CloseBraceFormatter());
+		formatters.add(new DefaultPropertiesFormatter());
 		formatters.add(new ExcessSpacesFormatter());
 		formatters.add(new BracesIndentationFormatter());
+		formatters.add(new LabelFormatter());
 		formatters.add(new BeginEndIndentationFormatter());
 		formatters.add(new OperatorIsolationFormatter()); /* Must be before alignment and after indent... why? */
 		formatters.add(new AssignmentBlockFormatter());
+		formatters.add(new CommentariesBlockFormatter());
 	}
 
 	public SourceFormatter(ArrayList<LineFormatter> formatters)
 	{
 		this.formatters = formatters;
+	}
+
+	public SourceFormatter(LineFormatter... formatters)
+	{
+		this.formatters = Arrays.asList(formatters);
 	}
 
 	public SourceFormatter(LineFormatter formatter)

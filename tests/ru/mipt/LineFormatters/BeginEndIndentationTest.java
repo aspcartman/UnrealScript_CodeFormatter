@@ -33,20 +33,20 @@ public class BeginEndIndentationTest
 	public void testIndentation() throws Exception
 	{
 		Source input = new Source();
-		input.addLine("Begin ");
-		input.addLine("begin ");
+		input.addLine("Begin Object");
+		input.addLine("begin Object");
 		input.addLine("ololol ");
-		input.addLine("end ");
-		input.addLine("End ");
+		input.addLine("end Object");
+		input.addLine("End Object");
 
 		Source actual = formatter.Format(input);
 
 		Source expected = new Source();
-		expected.addLine("Begin ");
-		expected.addLine("\tbegin ");
+		expected.addLine("Begin Object");
+		expected.addLine("\tbegin Object");
 		expected.addLine("\t\tololol ");
-		expected.addLine("\tend ");
-		expected.addLine("End ");
+		expected.addLine("\tend Object");
+		expected.addLine("End Object");
 
 		Assert.assertEquals(expected, actual);
 	}
@@ -55,10 +55,10 @@ public class BeginEndIndentationTest
 	public void testWrongSyntaxAtEnd() throws Exception
 	{
 		Source input = new Source();
-		input.addLine("Begin ");
-		input.addLine("begin ");
+		input.addLine("Begin Object");
+		input.addLine("begin Object");
 		input.addLine("ololol ");
-		input.addLine("end ");
+		input.addLine("end Object");
 
 		formatter.Format(input);
 	}
@@ -67,11 +67,31 @@ public class BeginEndIndentationTest
 	public void testWrongSyntax() throws Exception
 	{
 		Source input = new Source();
-		input.addLine("Begin ");
-		input.addLine("ololol ");
-		input.addLine("end ");
-		input.addLine("End ");
+		input.addLine("Begin Object");
+		input.addLine("end Object");
+		input.addLine("End Object");
 
 		formatter.Format(input);
 	}
+
+//	@Test
+//	public void testStateMachine() throws Exception
+//	{
+//		Source input = new Source();
+//		input.addLine("auto State PendingMatch");
+//		input.addLine("{");
+//		input.addLine("Begin:");
+//		input.addLine("StartMatch();");
+//		input.addLine("}");
+//		input.addLine("lol");
+//
+//		Source expected = new Source();
+//		expected.addLine("auto State PendingMatch");
+//		expected.addLine("{");
+//		expected.addLine("Begin:");
+//		expected.addLine("StartMatch();");
+//		expected.addLine("}");
+//		expected.addLine("lol");
+//
+//	}
 }

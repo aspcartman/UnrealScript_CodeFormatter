@@ -76,8 +76,8 @@ public class SourceFormatterTest
 	@Test
 	public void testIndentationBeginEnd() throws Exception
 	{
-		String[] input = new String[] {"lol", "Begin O", "begin o", "lol", "end o", "End O", "lol"};
-		String[] expected = new String[] {"lol", "Begin O", "\tbegin o", "\t\tlol", "\tend o", "End O", "lol"};
+		String[] input = new String[] {"lol", "Begin Object", "begin Object", "lol", "end Object", "End Object", "lol"};
+		String[] expected = new String[] {"lol", "Begin Object", "\tbegin Object", "\t\tlol", "\tend Object", "End Object", "lol"};
 		Source inputSource = new Source(input);
 		Source expectedSource = new Source(expected);
 

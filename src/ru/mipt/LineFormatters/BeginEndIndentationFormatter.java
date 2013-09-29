@@ -9,14 +9,12 @@ public class BeginEndIndentationFormatter extends IndentationFormatter
 	@Override
 	protected void IncreaseIndentationIfNeeded(String line)
 	{
-		indentationLevel += line.contains("Begin ") ? 1 : 0;
-		indentationLevel += line.contains("begin ") ? 1 : 0;
+		indentationLevel += line.matches("(?i:.*Begin Object.*)") ? 1 : 0;
 	}
 
 	@Override
 	protected void DecreaseIndentationIfNeeded(String line)
 	{
-		indentationLevel -= line.contains("End ") ? 1 : 0;
-		indentationLevel -= line.contains("end ") ? 1 : 0;
+		indentationLevel -= line.matches("(?i:.*End Object.*)") ? 1 : 0;
 	}
 }

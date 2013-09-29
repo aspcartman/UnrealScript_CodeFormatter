@@ -6,7 +6,8 @@ ShowCategories(Collision);
 
 /** Stop agent moving and pay death anim */
 function PlayDeath(vector KillMomentum)
-{Super.PlayDeath(KillMomentum);
+{a
+Super.PlayDeath(KillMomentum);
 
 if ( WorldInfo.TimeSeconds - LastRenderTime > 1 )
 {LifeSpan = 0.01;}
@@ -16,7 +17,9 @@ else
 /** Called by the Kismet "SetMaterial" node */
 function OnSetMaterial(SeqAct_SetMaterial Action)
 {if( SkeletalMeshComponent != None )
-{SkeletalMeshComponent.SetMaterial( Action.MaterialIndex, Action.NewMaterial );}}
+{SkeletalMeshComponent.SetMaterial( Action.MaterialIndex, Action.NewMaterial );}
+somethin==someOtherThing;
+som==lol;}
 
 defaultproperties
 {Health=20
